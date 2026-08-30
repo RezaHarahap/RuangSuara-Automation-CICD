@@ -14,7 +14,7 @@ describe('threadsSlice reducer', () => {
    */
   it('should set the selected category', () => {
     const state = threadsReducer(undefined, setCategory('react'));
-    expect(state.category).toBe('vue');
+    expect(state.category).toBe('react');
   });
 
   /**
