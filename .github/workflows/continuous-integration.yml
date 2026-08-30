@@ -28,6 +28,9 @@ jobs:
     needs: quality-check
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      NO_PROXY: localhost,127.0.0.1
+      no_proxy: localhost,127.0.0.1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

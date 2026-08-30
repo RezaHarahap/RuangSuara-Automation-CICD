@@ -14,4 +14,4 @@ Storybook digunakan untuk dokumentasi komponen terisolasi (`npm run storybook`) 
 
 Registrasi, login, thread, komentar, optimistic vote thread dan komentar, leaderboard, filter kategori, loading indicator, notifikasi, desain responsif, dan penanganan konten API secara aman.
 
-Workflow CI menjalankan lint, unit/component test, production build, Storybook build, dan Cypress E2E pada push serta Pull Request menuju `main` atau `master`. Job E2E memiliki batas waktu 15 menit agar kegagalan server atau browser tidak membuat workflow menggantung. Petunjuk bukti submission tersedia di `PANDUAN_CICD.md`.
+Workflow CI menjalankan lint, unit/component test, production build, Storybook build, dan Cypress E2E pada push serta Pull Request menuju `main` atau `master`. Job E2E menggunakan loopback `127.0.0.1` tanpa proxy dan memiliki batas waktu 15 menit agar kegagalan server atau browser tidak membuat workflow menggantung. Petunjuk bukti submission tersedia di `PANDUAN_CICD.md`.

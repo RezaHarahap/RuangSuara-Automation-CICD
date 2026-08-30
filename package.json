@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "start-server-and-test dev http://localhost:5173 'cypress run'",
+    "e2e": "start-server-and-test 'dev -- --host 127.0.0.1' http://127.0.0.1:5173 'cypress run'",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
