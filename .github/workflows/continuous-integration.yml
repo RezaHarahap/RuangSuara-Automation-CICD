@@ -23,7 +23,7 @@ jobs:
 
   end-to-end:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,8 +31,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Run Cypress E2E
-        run: npm run e2e
+      - name: Pin TypeScript 5 for Cypress compatibility
+        run: npm install --no-save --no-package-lock typescript@5.9.3
+      - name: Verify Cypress installation
+        run: npx cypress verify
+        env:
+          CYPRESS_VERIFY_TIMEOUT: 120000
+      - name: Run Cypress E2E with hard timeout
+        run: timeout --signal=TERM --kill-after=15s 180s npm run e2e
         env:
           CI: true
           CYPRESS_VERIFY_TIMEOUT: 120000
