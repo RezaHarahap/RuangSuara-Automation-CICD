@@ -43,10 +43,11 @@
 8. Masukkan `1_ci_check_error`, `2_ci_check_pass`, dan `3_branch_protection` ke folder `screenshots`.
 9. Kirim ZIP tanpa `node_modules`, `dist`, `storybook-static`, `coverage`, serta artefak Cypress.
 
-## Hasil validasi lokal pada 24 Agustus 2026
+## Hasil validasi lokal pada 30 Agustus 2026
 
 - ESLint: lulus tanpa error.
 - Unit/component test: 12/12 lulus.
 - Production build: berhasil.
 - Storybook static build: berhasil dan memuat 2 berkas stories.
+- Workflow: quality gate dan E2E dipisahkan; E2E berjalan setelah quality gate dan dibatasi maksimal 15 menit.
 - Cypress spec: konfigurasi dan skenario tersedia; binary Cypress perlu dijalankan di laptop/GitHub Actions karena unduhan binary pada lingkungan penyusunan tidak utuh.
