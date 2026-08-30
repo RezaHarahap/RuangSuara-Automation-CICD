@@ -9,6 +9,7 @@ on:
 jobs:
   quality-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,10 +23,18 @@ jobs:
 
   end-to-end:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
       - uses: cypress-io/github-action@v6
         with:
+          install: false
           build: npm run build
-          start: npm run dev -- --host 0.0.0.0
-          wait-on: http://localhost:5173
+          start: npm run dev -- --host 127.0.0.1
+          wait-on: http://127.0.0.1:5173
+          wait-on-timeout: 120
