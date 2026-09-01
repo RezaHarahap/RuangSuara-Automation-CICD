@@ -2,9 +2,19 @@
 
 Aplikasi forum diskusi React yang menggunakan Dicoding Forum API dan menerapkan automation testing pada reducer, asynchronous thunk, React component, serta End-to-End.
 
+## Deployment
+
+Production Vercel: https://ruang-suara-automation-cicd.vercel.app
+
+Gunakan URL Vercel production tersebut pada catatan submission Dicoding sebagai bukti deployment aplikasi.
+
 ## Perintah
 
 `npm install`, `npm run dev`, `npm run lint`, `npm test`, `npm run e2e`, dan `npm run build`.
+
+## Automation Testing
+
+Cypress E2E mencakup skenario halaman login, login gagal, login berhasil, registrasi, pembuatan thread, dan penambahan komentar. Project juga memiliki pengujian reducer, asynchronous thunk, dan React component.
 
 ## React ecosystem
 
