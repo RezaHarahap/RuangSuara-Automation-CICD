@@ -1,0 +1,38 @@
+name: Apply Exact ZIP
+
+on:
+  push:
+    branches:
+      - sync-full-zip
+    paths:
+      - '.exact/full.tar.xz'
+      - '.github/workflows/apply-exact-zip.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore exact ZIP contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp .exact/full.tar.xz /tmp/full.tar.xz
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          tar -xJf /tmp/full.tar.xz -C .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Sync exact full submission from ZIP"
+          git push origin HEAD:sync-full-zip
