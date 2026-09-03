@@ -24,12 +24,14 @@ jobs:
           git clone --depth 1 https://github.com/RezaHarahap/RuangSuara-React-Expert-CICD.git /tmp/source
           rm -rf /tmp/source/.git
 
-      - name: Replace target contents exactly
+      - name: Replace target contents except protected workflow
         shell: bash
         run: |
           set -euo pipefail
+          cp .github/workflows/continuous-integration.yml /tmp/continuous-integration.yml
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/source/. .
+          cp /tmp/continuous-integration.yml .github/workflows/continuous-integration.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
