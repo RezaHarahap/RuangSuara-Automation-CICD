@@ -12,41 +12,32 @@
 - [x] REST API hanya dipanggil di asynchronous thunk
 - [x] Folder UI dan state terpisah
 - [x] Komponen modular dan reusable
-- [x] 4 skenario pengujian reducer dengan narasi skenario
-- [x] 4 skenario pengujian thunk dengan narasi skenario
-- [x] 4 skenario pengujian React component dengan narasi skenario
-- [x] E2E Cypress untuk alur login dengan narasi skenario
-- [x] Perintah `npm test` dan `npm run e2e`
-- [x] GitHub Actions untuk lint, test, build, dan E2E
-- [x] Konfigurasi SPA untuk deployment Vercel
+- [x] Pengujian reducer dengan narasi skenario
+- [x] Pengujian asynchronous thunk dengan narasi skenario
+- [x] Pengujian React component dengan narasi skenario
+- [x] Cypress E2E: login page, login gagal, login berhasil, registrasi, membuat thread, menambah komentar
+- [x] GitHub Actions menjalankan lint, test, build, dan Cypress E2E
+- [x] Bukti CI gagal asli tersedia: `screenshot/1_ci_check_error.png`
+- [x] Bukti CI kembali lulus tersedia: `screenshot/2_ci_check_pass.png`
+- [x] Ruleset `Protect main` Active
+- [x] Require a pull request before merging
+- [x] Require status checks to pass
+- [x] Block force pushes
+- [x] Bukti branch protection tersedia: `screenshot/3_branch_protection.png`
+- [x] Deployment production Vercel aktif
+- [x] URL Vercel tercantum di README
 - [x] React Ecosystem: Storybook dan PropTypes
 - [x] Minimal 2 stories: ThreadCard dan VoteButtons
 
-## Target rating 5
+## Bukti screenshot wajib dalam ZIP
 
-- [x] Optimistic up-vote/down-vote/neutral-vote thread
-- [x] Optimistic up-vote/down-vote/neutral-vote komentar
-- [x] Indikator vote aktif dan jumlah vote
-- [x] Halaman leaderboard (nama, avatar, score)
-- [x] Filter thread berdasarkan kategori di front-end
-- [x] UI responsif dan orisinal
+- `screenshot/1_ci_check_error.png`
+- `screenshot/2_ci_check_pass.png`
+- `screenshot/3_branch_protection.png`
 
-## Sebelum unggah
+## URL penting
 
-1. Jalankan `npm install`.
-2. Jalankan `npm run lint` dan pastikan tidak ada error.
-3. Jalankan `npm run build`.
-4. Jalankan `npm run e2e`.
-5. Jalankan `npm run build-storybook`.
-6. Jalankan aplikasi dan uji register, login, thread, komentar, vote, filter, leaderboard, dan logout.
-7. Ikuti `PANDUAN_CICD.md` untuk GitHub, branch protection, Vercel, dan screenshot autentik.
-8. Masukkan `1_ci_check_error`, `2_ci_check_pass`, dan `3_branch_protection` ke folder `screenshots`.
-9. Kirim ZIP tanpa `node_modules`, `dist`, `storybook-static`, `coverage`, serta artefak Cypress.
-
-## Hasil validasi lokal pada 24 Agustus 2026
-
-- ESLint: lulus tanpa error.
-- Unit/component test: 12/12 lulus.
-- Production build: berhasil.
-- Storybook static build: berhasil dan memuat 2 berkas stories.
-- Cypress spec: konfigurasi dan skenario tersedia; binary Cypress perlu dijalankan di laptop/GitHub Actions karena unduhan binary pada lingkungan penyusunan tidak utuh.
+- Repository: https://github.com/RezaHarahap/RuangSuara-Automation-CICD
+- CI gagal Run #17: https://github.com/RezaHarahap/RuangSuara-Automation-CICD/actions/runs/33576965681
+- CI pass Run #18: https://github.com/RezaHarahap/RuangSuara-Automation-CICD/actions/runs/33577042275
+- Production: https://ruang-suara-automation-cicd.vercel.app
