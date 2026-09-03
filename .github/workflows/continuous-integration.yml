@@ -20,6 +20,7 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - run: npm run build-storybook
 
   end-to-end:
     runs-on: ubuntu-latest
@@ -31,8 +32,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Pin TypeScript 5 for Cypress compatibility
-        run: npm install --no-save --no-package-lock typescript@5.9.3
       - name: Verify Cypress installation
         run: npx cypress verify
         env:
