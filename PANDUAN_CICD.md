@@ -1,29 +1,42 @@
 # Panduan CI/CD dan Bukti Submission
 
-## GitHub dan CI
+## Repository
 
-1. Buat repository public dan unggah proyek.
-2. Gunakan branch default `main` (workflow juga mendukung `master`).
-3. Buat branch `submission-ci`, ubah sementara satu ekspektasi test agar gagal, commit, push, lalu buat Pull Request.
-4. Ambil screenshot check merah sebagai `screenshots/1_ci_check_error.png`.
-5. Kembalikan test yang benar, commit, dan push kembali.
-6. Ambil screenshot seluruh check hijau sebagai `screenshots/2_ci_check_pass.png`.
+GitHub: https://github.com/RezaHarahap/RuangSuara-Automation-CICD
 
-## Branch protection
+## 1. Bukti CI gagal
 
-Di **Settings → Branches/Rules**, buat aturan untuk `main`:
+GitHub Actions Run #17:
+https://github.com/RezaHarahap/RuangSuara-Automation-CICD/actions/runs/33576965681
+
+Run tersebut sengaja dibuat gagal pada branch/PR terpisah untuk memenuhi bukti wajib reviewer. Job `quality-check` gagal pada langkah `npm test`, sementara branch `main` tidak terkena perubahan gagal tersebut.
+
+Bukti: `screenshot/1_ci_check_error.png`.
+
+## 2. Bukti CI berhasil setelah diperbaiki
+
+GitHub Actions Run #18:
+https://github.com/RezaHarahap/RuangSuara-Automation-CICD/actions/runs/33577042275
+
+Setelah test sementara yang sengaja gagal dihapus, `quality-check` dan `end-to-end` kembali sukses.
+
+Bukti: `screenshot/2_ci_check_pass.png`.
+
+## 3. Branch protection
+
+Ruleset `Protect main` berstatus Active dan menargetkan branch `main` dengan aturan utama:
 
 - Require a pull request before merging.
-- Require status checks to pass before merging.
-- Pilih `quality-check` dan `end-to-end`.
-- Require branches to be up to date before merging.
+- Require status checks to pass.
+- Block force pushes.
 
-Ambil screenshot proteksi pada halaman PR sebagai `screenshots/3_branch_protection.png`.
+Bukti: `screenshot/3_branch_protection.png`.
 
-## Vercel
+## Deployment production
 
-Impor repository ke Vercel. Pilih Vite, Build Command `npm run build`, dan Output Directory `dist`. Uji refresh pada `/login`, `/register`, `/leaderboard`, lalu tempel URL production di catatan submission.
+Production Vercel:
+https://ruang-suara-automation-cicd.vercel.app
 
-## ZIP final
+## Catatan keamanan branch utama
 
-Setelah screenshot masuk, hapus `node_modules`, `dist`, `coverage`, `storybook-static`, `cypress/screenshots`, dan `cypress/videos`, lalu kompres folder proyek.
+PR #4 yang digunakan untuk membuat bukti CI gagal ditutup tanpa merge setelah CI kembali hijau. Dengan demikian, branch `main` tetap menggunakan kode yang lulus pengujian.

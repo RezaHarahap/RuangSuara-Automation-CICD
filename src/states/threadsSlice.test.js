@@ -7,6 +7,16 @@ const thread = {
   downVotesBy: ['user-2'],
 };
 
+const makeInitialState = () => ({
+  items: [{
+    ...thread,
+    upVotesBy: [...thread.upVotesBy],
+    downVotesBy: [...thread.downVotesBy],
+  }],
+  users: [],
+  category: 'Semua',
+});
+
 describe('threadsSlice reducer', () => {
   /**
    * Skenario: category reducer
@@ -22,7 +32,7 @@ describe('threadsSlice reducer', () => {
    * - harus memindahkan vote pengguna dari down-vote ke up-vote.
    */
   it('should move a vote to up-vote optimistically', () => {
-    const initial = { items: [structuredClone(thread)], users: [], category: 'Semua' };
+    const initial = makeInitialState();
     const state = threadsReducer(initial, optimisticVote({ id: 'thread-1', userId: 'user-2', voteType: 1 }));
     expect(state.items[0].upVotesBy).toContain('user-2');
     expect(state.items[0].downVotesBy).not.toContain('user-2');
@@ -33,7 +43,7 @@ describe('threadsSlice reducer', () => {
    * - harus menghapus vote pengguna dari kedua daftar.
    */
   it('should neutralize an existing vote', () => {
-    const initial = { items: [structuredClone(thread)], users: [], category: 'Semua' };
+    const initial = makeInitialState();
     const state = threadsReducer(initial, optimisticVote({ id: 'thread-1', userId: 'user-1', voteType: 0 }));
     expect(state.items[0].upVotesBy).not.toContain('user-1');
     expect(state.items[0].downVotesBy).not.toContain('user-1');
@@ -44,7 +54,7 @@ describe('threadsSlice reducer', () => {
    * - state harus tetap sama dan reducer tidak melempar error.
    */
   it('should leave state unchanged when the thread does not exist', () => {
-    const initial = { items: [structuredClone(thread)], users: [], category: 'Semua' };
+    const initial = makeInitialState();
     const state = threadsReducer(initial, optimisticVote({ id: 'missing', userId: 'user-3', voteType: -1 }));
     expect(state).toEqual(initial);
   });
