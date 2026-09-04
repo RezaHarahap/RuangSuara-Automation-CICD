@@ -1,0 +1,42 @@
+name: Restore Exact ZIP
+
+on:
+  push:
+    branches:
+      - sync-full-zip
+    paths:
+      - '.zipsync2/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: sync-full-zip
+          fetch-depth: 0
+
+      - name: Reconstruct exact project
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .zipsync2/part* | base64 --decode > /tmp/submission.tar.xz
+          mkdir -p /tmp/submission
+          tar -xJf /tmp/submission.tar.xz -C /tmp/submission
+          PROJECT='/tmp/submission/RuangSuara-Automation-CICD'
+          test -f "$PROJECT/package-lock.json"
+          test -f "$PROJECT/screenshot/1_ci_check_error.png"
+          test -f "$PROJECT/.github/workflows/continuous-integration.yml"
+
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -a "$PROJECT"/. .
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Sync exact full submission from ZIP 3.2'
+          git push origin HEAD:sync-full-zip
