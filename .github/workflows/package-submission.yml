@@ -1,0 +1,26 @@
+name: Package Submission
+
+on:
+  push:
+    branches: [branch-protection-evidence]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create clean submission archive
+        run: |
+          zip -r RuangSuara-Automation-CICD-Submission.zip . \
+            -x '.git/*' \
+               'node_modules/*' \
+               'dist/*' \
+               'storybook-static/*' \
+               'coverage/*' \
+               'cypress/screenshots/*' \
+               'cypress/videos/*'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ruangsuara-submission-source
+          path: RuangSuara-Automation-CICD-Submission.zip
+          if-no-files-found: error
